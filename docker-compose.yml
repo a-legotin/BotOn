@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  boton-identity:
+    image: boton-identity
+    build:
+      context: .
+      network: host
+      dockerfile: src/services/identity/Identity/Dockerfile
+    restart: on-failure
+    deploy:
+      replicas: 1
+    networks:
+      - main-network
+    ports:
+      - "10100:10100"
+  boton-web:
+    image: boton-web
+    build:
+      context: src/app/.
+      network: host
+      dockerfile: Dockerfile
+    restart: on-failure
+    deploy:
+      replicas: 1
+    networks:
+      - main-network
+    ports:
+      - "10101:80"
+ 
+networks:
+  main-network:
+    driver: bridge
