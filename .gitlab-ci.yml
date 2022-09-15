@@ -65,7 +65,9 @@ deploy:
   environment:
     name: staging
   script:
+    - kubectl config view
     - kubectl config get-contexts
+    - kubectl get all --namespace=boton
     - echo "Creating namespace, it might exists already, so force!"
     - kubectl apply -f deploy/namespace.yaml
     - echo "Clean up"
